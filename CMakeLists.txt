@@ -4,6 +4,7 @@ project(deep_tracer)
 
 set(PROJECT_INCLUDE_DIR
     ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/lib
 )
 
 include_directories("${PROJECT_INCLUDE_DIR}")

@@ -1,62 +1,6 @@
 #include <unistd.h>
-#include <iostream>
-#include <vector>
-#include <string>
-
-class Arg
-{
-    std::vector<std::string> _args;
-    std::vector<const char *> _buffer;
-
-private:
-    void Push(const std::string &arg)
-    {
-        _args.push_back(arg);
-        _buffer.push_back(_args[_args.size() - 1].c_str());
-    }
-
-    void Finish()
-    {
-        if (!_buffer.size())
-        {
-            return;
-        }
-
-        if (_buffer[_buffer.size() - 1] != nullptr)
-        {
-            _buffer.push_back(nullptr);
-        }
-    }
-
-public:
-    Arg(const std::string &arg)
-    {
-        Push(arg);
-    }
-
-    template <typename... Args>
-    Arg(const std::string &head, Args... args)
-    {
-        Push(head);
-        Arg(args...);
-    }
-
-    Arg &Add(const std::string &arg)
-    {
-        Push(arg);
-        return *this;
-    }
-
-    operator const char **()
-    {
-        Finish();
-        return _buffer.data();
-    }
-
-    ~Arg()
-    {
-    }
-};
+#include <log.hh>
+#include <argv.hh>
 
 class Process
 {
@@ -130,15 +74,17 @@ int main(int argc, char *argv[])
         std::cerr << "Process name " << argv[i] << "\n";
     }
 
-    Arg args{"first", "second", "third", "fourth"};
+    DTrace::Arg args{"first", "second", "third", "fourth"};
 
     args.Add("Fifth").Add("Sixth").Add("Seventh");
 
-    const char **char_args = args;
+    DTrace::Arg::Argv argv = args.Finalize();
+
+    const char **char_args = argv;
 
     for (int i = 0; char_args[i] != nullptr; i++)
     {
-        std::cout << (char *)char_args[i] << "\n";
+        Info() << (char *)char_args[i];
     }
 
     return 0;
