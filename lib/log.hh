@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace DTrace
+namespace DeepTrace
 {
     class Logger
     {
@@ -70,27 +70,27 @@ namespace DTrace
     };
 }
 
-#define Debug() DTrace::Logger(DTrace::Logger::Level::Debug, \
+#define Debug() DeepTrace::Logger(DeepTrace::Logger::Level::Debug, \
                                __FILE_NAME__,                \
                                __LINE__,                     \
                                __func__)
 
-#define Info() DTrace::Logger(DTrace::Logger::Level::Info, \
+#define Info() DeepTrace::Logger(DeepTrace::Logger::Level::Info, \
                               __FILE_NAME__,               \
                               __LINE__,                    \
                               __func__)
 
-#define Warn() DTrace::Logger(DTrace::Logger::Level::Warn, \
+#define Warn() DeepTrace::Logger(DeepTrace::Logger::Level::Warn, \
                               __FILE_NAME__,               \
                               __LINE__,                    \
                               __func__)
 
-#define Error() DTrace::Logger(DTrace::Logger::Level::Error, \
+#define Error() DeepTrace::Logger(DeepTrace::Logger::Level::Error, \
                                __FILE_NAME__,                \
                                __LINE__,                     \
                                __func__)
 
-#define Fatal() DTrace::Logger(DTrace::Logger::Level::Fatal, \
+#define Fatal() DeepTrace::Logger(DeepTrace::Logger::Level::Fatal, \
                                __FILE_NAME__,                \
                                __LINE__,                     \
                                __func__)
